@@ -1,0 +1,2 @@
+- terminalist (todoist tui client)
+- slk (tui client)
