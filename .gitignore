@@ -1,0 +1,4 @@
+# Local OpenCode config (contains the BookRhino API key)
+opencode.json
+opencode.jsonc
+.opencode/
