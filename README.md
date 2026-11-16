@@ -1,16 +1,16 @@
 # octopus
 
 Personal reference repo: hand-maintained lists of tools, plus a small `$$` command
-protocol for the agent.
+protocol for the agent. Work happens in the `workspace/` folder.
 
 ## Contents
 
 | File | What it holds |
 | --- | --- |
-| `cli.md` | Installed CLI / TUI clients |
-| `mcps.md` | Installed MCP servers and their tools |
+| `CLI.md` | the CLI TUI client stack |
 | `COMMANDS.md` | The `$$` command registry |
 | `AGENTS.md` | Agent guide and `$$` command protocol |
+| `workspace/` | Active work folder (not tracked by git) |
 
 ## Agent commands
 
