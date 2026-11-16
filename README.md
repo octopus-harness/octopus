@@ -8,7 +8,6 @@ protocol for the agent. Work happens in the `workspace/` folder.
 | File | What it holds |
 | --- | --- |
 | `CLI.md` | the CLI TUI client stack |
-| `mcps.md` | Installed MCP servers and their tools |
 | `COMMANDS.md` | The `$$` command registry |
 | `AGENTS.md` | Agent guide and `$$` command protocol |
 | `workspace/` | Active work folder (not tracked by git) |
