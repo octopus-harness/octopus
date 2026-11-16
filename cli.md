@@ -1,2 +1,2 @@
-- terminalist (todoist tui client)
+- doer-tui(doer tui client)
 - slk (tui client)
