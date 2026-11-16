@@ -58,14 +58,10 @@ Tool use is allowed for this command.
 1. Use `doer-tui` (or available `doer` tools) to locate the todo list named `content-ideas` and fetch its current todo items.
    - If `content-ideas` cannot be found or has no actionable items, reply with one line explaining that and stop.
 2. Present the fetched items as a numbered list and ask the user which single item to work on. Use the `question` tool if available; otherwise ask directly in the reply and wait for their choice.
-3. Once the user selects an item, produce a ready-to-use **article prompt** for that idea. The prompt should include, at minimum:
-   - Working title
-   - Target audience
-   - Goal/thesis
+3. Once the user selects an item, produce a ready-to-use **article prompt** for that idea. The prompt should only include:
+   - Article Title
    - Suggested outline (3–6 sections with brief bullet points)
-   - Tone/style notes
-   - Any key points or research angles implied by the selected todo
-4. Do not modify files unless the user explicitly asks to save the generated prompt.
+4. Retreive the prompt template from Devbook MCP (prompt id 6), replace the {{ article title }} and {{ article bullet points}} with article title and suggested outline. DO NOT MODIFY THE PROMPT IN DEVBOOK MCP. Instead return the merged content to the user.
 
 ## $$readable_summary
 
