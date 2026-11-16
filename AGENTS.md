@@ -27,3 +27,8 @@ Only the first token counts: `$$commands please` runs `$$commands` and ignores `
 2. Add a `## $$name` section with its usage, arguments, and exact response format.
 
 Keep the index table and the sections in the same order.
+
+## Writing
+
+Before writing anything (docs, messages, generated text, etc.), retrieve and apply the writing ruleset:
+1. Follow Memorable memory **#5 locate it with `tools.memorable.memorable_get_memory({ id: 5 })`.
