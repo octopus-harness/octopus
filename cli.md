@@ -1,3 +1,0 @@
-- doer-tui(doer tui client)
-- slk (tui client)
-- noteking (tui client)
