@@ -9,12 +9,13 @@ Messages that begin with `$$` run the matching command from this file. Rows are 
 | `$$commands` | — | List all available commands |
 | `$$help` | `[command]` | Show the help message, or details for one command |
 | `$$content_prompt` | — | Pull todos from `content-ideas` in doer-tui, pick one, and draft an article prompt |
+| `$$readable_summary` | `[text]` | Rewrite the provided text into a concise, readable summary in the user's voice |
 
 ## $$commands
 
 Usage: `$$commands`
 
-Reply with the line `3 commands available:` followed by a Markdown table with the columns
+Reply with the line `4 commands available:` followed by a Markdown table with the columns
 `Command`, `Args` and `Description`, copied from the index above in the same order.
 Nothing before or after it.
 
@@ -34,6 +35,7 @@ Commands:
   $$help                Show the help message, or details for one command
   $$help <command>      Show details for one command
   $$content_prompt      Pull todos from `content-ideas` in doer-tui, pick one, and draft an article prompt
+  $$readable_summary    Rewrite provided text into a readable summary in the user's voice
 
 Example: $$help $$commands
 
@@ -64,3 +66,11 @@ Tool use is allowed for this command.
    - Tone/style notes
    - Any key points or research angles implied by the selected todo
 4. Do not modify files unless the user explicitly asks to save the generated prompt.
+
+## $$readable_summary
+
+Usage: `$$readable_summary [text]`
+
+1. If the user provided text in the message, use that. Otherwise, ask the user to paste the text they want summarized and wait for their response.
+2. Rewrite the text into a concise, readable summary. Match the user's voice: clear, direct, conversational — no corporate fluff or filler.
+3. Return the summary. Do not modify files unless explicitly asked.
