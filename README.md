@@ -7,7 +7,7 @@ protocol for the agent.
 
 | File | What it holds |
 | --- | --- |
-| `cli.md` | Installed CLI / TUI clients |
+| `CLI.md` | the CLI TUI client stack |
 | `mcps.md` | Installed MCP servers and their tools |
 | `COMMANDS.md` | The `$$` command registry |
 | `AGENTS.md` | Agent guide and `$$` command protocol |
