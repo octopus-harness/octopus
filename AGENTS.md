@@ -25,8 +25,3 @@ Only the first token counts: `$$commands please` runs `$$commands` and ignores `
 
 1. Run `com add <name>` to create `./commands/<name>.md`.
 2. Write the command's header (`Usage:`, `Args:`, `Description:`) and execution instructions into `./commands/<name>.md`.
-
-## Writing
-
-Before writing anything (docs, messages, generated text, etc.), retrieve and apply the writing ruleset:
-1. Follow Memorable memory **#5 locate it with `tools.memorable.memorable_get_memory({ id: 5 })`.
