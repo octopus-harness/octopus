@@ -1,72 +1,31 @@
 # $$ Commands
 
-Messages that begin with `$$` run the matching command from this file. Rows are listed in display order; `$$commands` prints them in this order.
+Messages that begin with `$$` run the matching command from `./commands`.
 
-## Index
+## Using `com`
 
-| Command | Args | Description |
-| --- | --- | --- |
-| `$$commands` | — | List all available commands |
-| `$$help` | `[command]` | Show the help message, or details for one command |
-| `$$content_prompt` | — | Pull todos from `content-ideas` in doer-tui, pick one, and draft an article prompt |
-| `$$readable_summary` | `[text]` | Rewrite the provided text into a concise, readable summary in the user's voice |
+Use the `com` CLI tool to manage and read command definitions:
 
-## $$commands
+* Read a command: `com get <name>` (prints `./commands/<name>.md`)
+* Create a command: `com add <name>` (creates `./commands/<name>.md`)
+* Interactive mode: `com` (prompts for `add` or `get` and lets you pick a file)
+* Help: `com help`
 
-Usage: `$$commands`
+Strip the leading `$$` before passing `<name>` to `com` (for example, `$$help` maps to `com get help`).
 
-Reply with the line `4 commands available:` followed by a Markdown table with the columns
-`Command`, `Args` and `Description`, copied from the index above in the same order.
-Nothing before or after it.
+## Command File Format
 
-## $$help
-
-Usage: `$$help [command]`
-
-**Without an argument**, print this help message:
+Every command file in `./commands/<name>.md` starts with a three-line header followed by its execution instructions:
 
 ```text
-`$$` commands — a message that begins with `$$` runs the matching command.
-
-Usage: $$<command> [args]
-
-Commands:
-  $$commands            List all available commands
-  $$help                Show the help message, or details for one command
-  $$help <command>      Show details for one command
-  $$content_prompt      Pull todos from `content-ideas` in doer-tui, pick one, and draft an article prompt
-  $$readable_summary    Rewrite provided text into a readable summary in the user's voice
-
-Example: $$help $$commands
-
-Add or change commands in COMMANDS.md.
+Usage: $$<name> [args]
+Args: <args or "-">
+Description: <one-line summary>
 ```
 
-**With an argument**, strip a leading `$$` from the argument and match it case-insensitively
-against the index:
+## Running a Command
 
-- If it matches, print that command's section (usage, arguments, example) on its own,
-  without the rest of the commands.
-- If it doesn't match, reply with one line: `Unknown command: <arg>. Run $$commands to see what's available.`
-
-## $$content_prompt
-
-Usage: `$$content_prompt`
-
-Tool use is allowed for this command.
-
-1. Use `doer-tui` (or available `doer` tools) to locate the todo list named `content-ideas` and fetch its current todo items.
-   - If `content-ideas` cannot be found or has no actionable items, reply with one line explaining that and stop.
-2. Present the fetched items as a numbered list and ask the user which single item to work on. Use the `question` tool if available; otherwise ask directly in the reply and wait for their choice.
-3. Once the user selects an item, produce a ready-to-use **article prompt** for that idea. The prompt should only include:
-   - Article Title
-   - Suggested outline (3–6 sections with brief bullet points)
-4. Retreive the prompt template from Devbook MCP (prompt id 6), replace the {{ article title }} and {{ article bullet points}} with article title and suggested outline. DO NOT MODIFY THE PROMPT IN DEVBOOK MCP. Instead return the merged content to the user.
-
-## $$readable_summary
-
-Usage: `$$readable_summary [text]`
-
-1. If the user provided text in the message, use that. Otherwise, ask the user to paste the text they want summarized and wait for their response.
-2. Rewrite the text into a concise, readable summary. Match the user's voice: clear, direct, conversational — no corporate fluff or filler.
-3. Return the summary. Do not modify files unless explicitly asked.
+1. Parse `$$name [args...]` from the start of the message (case-insensitive). A bare `$$` runs `$$help`.
+2. Run `com get <name>` to load the command definition.
+3. If `com get <name>` fails because the command file does not exist, reply with one line: `Unknown command: $$name. Run $$commands to see what's available.`
+4. Follow the loaded instructions cleanly: no preamble, no trailing commentary, and no file edits unless the command specifies otherwise.

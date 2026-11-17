@@ -8,7 +8,7 @@ protocol for the agent. Work happens in the `workspace/` folder.
 | File | What it holds |
 | --- | --- |
 | `CLI.md` | the CLI TUI client stack |
-| `COMMANDS.md` | The `$$` command registry |
+| `COMMANDS.md` | How to use `com` for `$$` commands |
 | `AGENTS.md` | Agent guide and `$$` command protocol |
 | `workspace/` | Active work folder (not tracked by git) |
 | `bin/work` | CLI tool to manage workspace folders and archiving |
@@ -19,8 +19,8 @@ protocol for the agent. Work happens in the `workspace/` folder.
 
 In an OpenCode session in this repo, a message that starts with `$$` is a command:
 
-- `$$commands` — list all available commands
-- `$$help` — print the help message
-- `$$help <command>` — details for one command
+* `$$commands`: list all available commands
+* `$$help`: print the help message
+* `$$help <command>`: details for one command
 
-See [`COMMANDS.md`](COMMANDS.md) for the full registry.
+Commands live in `./commands` and are managed via `bin/com`. See [`COMMANDS.md`](COMMANDS.md) for the command protocol.
