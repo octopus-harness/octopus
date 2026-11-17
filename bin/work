@@ -7,10 +7,10 @@ ARCHIVE_DIR="./archive"
 usage() {
   cat <<'EOF'
 Usage:
-  workspace                  Choose an action interactively (add or archive)
-  workspace add [name]       Create a folder under ./workspace
-  workspace archive [name]   Move a folder from ./workspace to ./archive
-  workspace help             Show this help message
+  work                  Choose an action interactively (add or archive)
+  work add [name]       Create a folder under ./workspace
+  work archive [name]   Move a folder from ./workspace to ./archive
+  work help             Show this help message
 EOF
 }
 
@@ -113,7 +113,7 @@ main() {
       cmd_archive "${1:-}"
       ;;
     *)
-      die "Unknown command: '$subcmd'. Run 'workspace help' for usage."
+      die "Unknown command: '$subcmd'. Run 'work help' for usage."
       ;;
   esac
 }

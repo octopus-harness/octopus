@@ -11,7 +11,7 @@ protocol for the agent. Work happens in the `workspace/` folder.
 | `COMMANDS.md` | The `$$` command registry |
 | `AGENTS.md` | Agent guide and `$$` command protocol |
 | `workspace/` | Active work folder (not tracked by git) |
-| `bin/workspace` | CLI tool to manage workspace folders and archiving |
+| `bin/work` | CLI tool to manage workspace folders and archiving |
 
 ## Agent commands
 

@@ -4,4 +4,4 @@ The Following TUI Stack is being used in combination with Tmux Setup for Super D
 - noteking-tui (notes management)
 - macronx-tui (workflow management)
 - opencode (ai/mcp server orchestration)
-- workspace (workspace folder creation and archiving)
+- work (workspace folder creation and archiving)
