@@ -136,7 +136,7 @@ These four projects are designed to work seamlessly together inside Octopus work
 | Project | Role in the Ecosystem | What It Manages |
 | --- | --- | --- |
 | [**Noteking**](https://github.com/leouofa/noteking) | Knowledge & Research | Projects, structured Markdown notes, pinned references, and attachments |
-| [**Doer**](https://github.com/leouofa/doer) | Task & Idea Tracking | Projects, actionable todo lists, and backlog items (`doer-tui` & MCP) |
+| [**Doer**](https://github.com/leouofa/doer) | Task & Idea Tracking | Projects, actionable todo lists, and backlog items |
 | [**Memorable**](https://github.com/leouofa/memorable) | Semantic Memory & Voice | Persistent memories, writing rulesets, persona guidelines, and semantic search |
 | [**Devbook**](https://github.com/leouofa/devbook) | Prompt Engineering Library | Versioned prompt templates with `{{ variable }}` placeholders and project grouping |
 
@@ -148,11 +148,11 @@ Chain **Doer** and **Devbook** to turn raw backlog ideas into structured, high-l
 ```markdown
 Usage: $$content_prompt
 Args: -
-Description: Pull todos from `content-ideas` in doer-tui, pick one, and draft an article prompt
+Description: Pull todos from `content-ideas` in `doer`, pick one, and draft an article prompt
 
 Tool use is allowed for this command.
 
-1. Use `doer-tui` (or available `doer` MCP tools) to locate the todo list named `content-ideas` and fetch its current todo items.
+1. Use `doer` MCP to locate the todo list named `content-ideas` and fetch its current todo items.
 2. Present the fetched items as a numbered list and ask the user which single item to work on.
 3. Once the user selects an item, produce an Article Title and Suggested Outline (3 to 6 sections with brief bullet points).
 4. Retrieve the prompt template from Devbook MCP (id 6), and replace `{{ article title }}` and `{{ article bullet points }}` with the generated title and outline. Return the merged prompt to the user without modifying the stored template in Devbook.
@@ -169,7 +169,7 @@ Description: Rewrite the provided text into a concise, readable summary in the u
 Tool use is allowed for this command.
 
 1. If the user provided text in the message, use that; otherwise ask the user to paste the text.
-2. Retrieve and apply the writing ruleset from Memorable memory #5 via `memorable_get_memory({ id: 5 })`.
+2. Retrieve and apply the writing ruleset from Memorable MCP `memorable_get_memory({ id: 5 })`.
 3. Rewrite the text into a concise, readable summary matching the user's voice (clear, direct, conversational, no corporate filler).
 ```
 
