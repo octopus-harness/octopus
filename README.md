@@ -95,14 +95,14 @@ Pulls an idea from **Doer** and merges an outline into a **Devbook** prompt temp
 ```markdown
 Usage: $$content_prompt
 Args: -
-Description: Pull todos from `content-ideas` in Doer, pick one, and draft an article prompt
+Description: Pull todos from `content-ideas` in `doer`, pick one, and draft an article prompt
 
 Tool use is allowed for this command.
 
-1. Fetch items from the `content-ideas` todo list in Doer (`doer-tui` or Doer MCP).
-2. Present the items as a numbered list and ask the user which one to work on.
-3. Produce an Article Title and a 3–6 section outline with brief bullet points.
-4. Fetch Devbook template #6 and replace `{{ article title }}` and `{{ article bullet points }}` with the generated title and outline. Return the merged prompt without modifying the stored template.
+1. Use `doer` MCP to locate the todo list named `content-ideas` and fetch its current todo items.
+2. Present the fetched items as a numbered list and ask the user which single item to work on.
+3. Once the user selects an item, produce an Article Title and Suggested Outline (3 to 6 sections with brief bullet points).
+4. Retrieve the prompt template from Devbook MCP (id 6), and replace `{{ article title }}` and `{{ article bullet points }}` with the generated title and outline. Return the merged prompt to the user without modifying the stored template in Devbook.
 ```
 
 #### 2. Voice-Consistent Summary (`$$readable_summary`)
@@ -116,9 +116,9 @@ Description: Rewrite text into a concise summary in the user's voice
 
 Tool use is allowed for this command.
 
-1. Use the text provided in the message, or ask the user to paste it.
-2. Fetch the writing ruleset from Memorable memory #5 via `memorable_get_memory({ id: 5 })`.
-3. Rewrite the text into a concise, direct summary following that ruleset.
+1. If the user provided text in the message, use that; otherwise ask the user to paste the text.
+2. Retrieve and apply the writing ruleset from Memorable MCP `memorable_get_memory({ id: 5 })`.
+3. Rewrite the text into a concise, readable summary matching the user's voice (clear, direct, conversational, no corporate filler).
 ```
 
 #### 3. Four-Tool Synthesis (`$$deep_spec`)
