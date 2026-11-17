@@ -7,7 +7,6 @@ protocol for the agent. Work happens in the `workspace/` folder.
 
 | File | What it holds |
 | --- | --- |
-| `CLI.md` | the CLI TUI client stack |
 | `COMMANDS.md` | How to use `com` for `$$` commands |
 | `AGENTS.md` | Agent guide and `$$` command protocol |
 | `workspace/` | Active work folder (not tracked by git) |
