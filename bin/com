@@ -1,0 +1,127 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_PATH="$(realpath "${BASH_SOURCE[0]}")"
+REPO_DIR="$(cd "$(dirname "$SCRIPT_PATH")/.." && pwd)"
+COMMANDS_DIR="$REPO_DIR/commands"
+
+usage() {
+  cat <<'EOF'
+Usage:
+  com                  Choose an action interactively (add or get)
+  com add [name]       Create a blank .md file under ./commands
+  com get [name]       Print contents of a .md file from ./commands
+  com help             Show this help message
+EOF
+}
+
+die() {
+  printf 'Error: %s\n' "$1" >&2
+  exit 1
+}
+
+require_dir() {
+  if [[ ! -d "$COMMANDS_DIR" ]]; then
+    mkdir -p "$COMMANDS_DIR"
+  fi
+}
+
+validate_name() {
+  local name="$1"
+  [[ -n "$name" ]] || die "Command name cannot be empty."
+  [[ "$name" != "." && "$name" != ".." ]] || die "Invalid command name: '$name'."
+  [[ "$name" != *"/"* && "$name" != *".."* ]] || die "Command name cannot contain '/' or '..'."
+}
+
+normalize_filename() {
+  local name="$1"
+  if [[ "$name" == *.md ]]; then
+    printf '%s' "$name"
+  else
+    printf '%s.md' "$name"
+  fi
+}
+
+pick_option() {
+  local prompt="$1"
+  shift
+  local options=("$@")
+  if command -v fzf >/dev/null 2>&1 && [[ -t 0 && -t 1 ]]; then
+    printf '%s\n' "${options[@]}" | fzf --prompt="$prompt " --height=~10 --layout=reverse --border=top
+  else
+    PS3="$prompt "
+    local choice
+    select choice in "${options[@]}"; do
+      if [[ -n "${choice:-}" ]]; then
+        printf '%s\n' "$choice"
+        break
+      fi
+    done
+  fi
+}
+
+cmd_add() {
+  require_dir
+  local name="${1:-}"
+  if [[ -z "$name" ]]; then
+    printf 'Command name: ' >&2
+    IFS= read -r name
+  fi
+  validate_name "$name"
+  local filename
+  filename="$(normalize_filename "$name")"
+  local target="$COMMANDS_DIR/$filename"
+  [[ ! -e "$target" ]] || die "Command file '$filename' already exists at $target."
+  touch "$target"
+  printf 'Created %s\n' "$target"
+}
+
+cmd_get() {
+  require_dir
+  local name="${1:-}"
+  if [[ -z "$name" ]]; then
+    local files=()
+    while IFS= read -r file; do
+      [[ -n "$file" ]] && files+=("$file")
+    done < <(find "$COMMANDS_DIR" -mindepth 1 -maxdepth 1 -type f -name '*.md' -exec basename {} \; | sort)
+
+    [[ ${#files[@]} -gt 0 ]] || die "No commands found in $COMMANDS_DIR."
+    name="$(pick_option "Get command:" "${files[@]}")" || exit 1
+  fi
+  validate_name "$name"
+  local filename
+  filename="$(normalize_filename "$name")"
+  local target="$COMMANDS_DIR/$filename"
+  [[ -f "$target" ]] || die "Command file '$filename' does not exist in $COMMANDS_DIR."
+  cat "$target"
+}
+
+main() {
+  local subcmd="${1:-}"
+  if [[ "$subcmd" == "-h" || "$subcmd" == "--help" || "$subcmd" == "help" ]]; then
+    usage
+    exit 0
+  fi
+
+  require_dir
+
+  if [[ -z "$subcmd" ]]; then
+    subcmd="$(pick_option "Action:" "add" "get")" || exit 1
+  else
+    shift
+  fi
+
+  case "$subcmd" in
+    add)
+      cmd_add "${1:-}"
+      ;;
+    get)
+      cmd_get "${1:-}"
+      ;;
+    *)
+      die "Unknown command: '$subcmd'. Run 'com help' for usage."
+      ;;
+  esac
+}
+
+main "$@"
