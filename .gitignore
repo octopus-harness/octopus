@@ -3,6 +3,9 @@ opencode.json
 opencode.jsonc
 .opencode/
 
+# Agents & MCP config
+.agents/
+
 # Workspace
 workspace/
 
