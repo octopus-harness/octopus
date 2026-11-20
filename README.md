@@ -1,6 +1,7 @@
-# Octopus 
-
-Octopus is a lightweight harness for AI agents. Not a skill manifest, not a plugin zoo, and not another abstraction layer wrapped around your tools. It is a command protocol and a workspace manager.
+# Octopus 🐙
+<p align="center"><strong>
+A lightweight harness for AI agents. Not a skill manifest, not a plugin zoo, and not another abstraction layer wrapped around your tools. It is a command protocol and a workspace manager.
+</strong></p>
 
 ## The Core Idea
 
