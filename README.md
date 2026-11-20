@@ -25,9 +25,9 @@ flowchart LR
 
 ## Tools
 
-Octopus is built on two small Bash utilities in `bin/`:
+Octopus relies on two lightweight companion CLI tools:
 
-### `bin/com` — Command Definitions (`$$`)
+### [`com`](https://github.com/octopus-harness/octo-com) — Command Definitions (`$$`)
 
 Creates and reads `$$` command definitions in `./commands/<name>.md`. Each file is a plain Markdown runbook: usage, args, description, and steps. It can call CLIs, chain MCP servers, ask questions, and write files.
 
@@ -60,7 +60,7 @@ Built-in conventions:
 | `$$help <command>` | Print the full Markdown definition for `<command>` |
 | `$$commands` | Display a formatted table of all commands in `./commands` |
 
-### `bin/work` — Workspace Manager
+### [`work`](https://github.com/octopus-harness/octo-work) — Workspace Manager
 
 Creates isolated task folders in `./workspace` and archives finished runs to `./archive`, with automatic timestamp deduplication (`-YYYYMMDD-HHMMSS`) and `fzf` selection.
 
@@ -132,12 +132,14 @@ Chains all four tools into an isolated workspace artifact:
 
 ## Quickstart
 
-Clone the repo, put `bin/` on `PATH`, create the three local directories, then add your first command and workspace:
+Clone the repo, install the companion CLI tools [`com`](https://github.com/octopus-harness/octo-com) and [`work`](https://github.com/octopus-harness/octo-work) into your `PATH`, create the three local directories, then add your first command and workspace:
 
 ```bash
 git clone https://github.com/leouofa/octopus.git
 cd octopus
-export PATH="$PWD/bin:$PATH"
+
+# Ensure com and work are installed and on your PATH:
+# (see https://github.com/octopus-harness/octo-com and https://github.com/octopus-harness/octo-work)
 
 mkdir -p commands workspace archive
 
@@ -154,8 +156,6 @@ Write the command in `./commands/hello.md`, then run `$$hello` in your agent ses
 | [`README.md`](README.md) | Repo overview, ecosystem links, and quickstart |
 | [`AGENTS.md`](AGENTS.md) | Agent guide and `$$` command protocol |
 | [`COMMANDS.md`](COMMANDS.md) | Detailed `$$` command specification and `com` usage |
-| [`bin/com`](bin/com) | CLI tool to add and read command definitions in `./commands` |
-| [`bin/work`](bin/work) | CLI tool to add and archive workspaces in `./workspace` and `./archive` |
 | `commands/` | Local command Markdown files (gitignored) |
 | `workspace/` | Active workspace folders (gitignored) |
 | `archive/` | Archived workspace folders (gitignored) |
