@@ -38,6 +38,17 @@ com get my_workflow  # Print ./commands/my_workflow.md
 com help             # Show CLI usage
 ```
 
+Configure `com` to point to the repository's `commands/` directory so commands are universally accessible from any folder or terminal session:
+
+```bash
+# Set a persistent global commands directory (stored in ~/.config/octo-com/config.json)
+com config set-dir /path/to/octopus/commands
+
+# Inspect active configuration
+com config get-dir
+com config
+```
+
 Every command file starts with a three-line header followed by execution steps (see [`COMMANDS.md`](COMMANDS.md) for the full specification):
 
 ```markdown
@@ -130,6 +141,28 @@ Chains all four tools into an isolated workspace artifact:
 3. **Memorable:** Recall relevant past decisions and coding conventions via semantic search.
 4. **Devbook:** Inject the task, notes, and constraints into a parameterized prompt template and write the result to `./workspace/<feature>/prompt.md`.
 
+## Universal Multi-Agent & Terminal Workflow
+
+### Cross-System, Multi-Agent Ready
+
+You can work inside the `octopus` repository itself—[`AGENTS.md`](AGENTS.md) is located here and workspace runs can live directly in `./workspace`. But because `com` and `work` are system-wide CLI tools, the workflow isn't confined to a single directory or agent harness. You can run tasks from any project across your entire machine, integrating with multiple agents simultaneously:
+
+- **Antigravity**
+- **Claude Code**
+- **OpenCode**
+- **Cursor**
+- Any CLI or IDE agent equipped with shell access
+
+Point `com` to your commands directory once (`com config set-dir`), and any agent anywhere on your system can run `com get <name>` to load on-demand context via the `$$` protocol.
+
+### A Heaven for Heavy Terminal Users
+
+Everything in Octopus, `com`, and `work` is built keyboard-first:
+
+- **VIMified & TUI-Driven:** Interactive modes leverage `fzf` fuzzy filtering with VIM navigation (`j`/`k`, `/`), instant command previews, and reverse layouts.
+- **Fast Interactive Pickers:** Running bare `com` or `work` immediately opens a clean TUI selector to add, inspect, or archive items without having to remember flags or subcommands.
+- **Scriptable & Pipe-Friendly:** Every command falls back gracefully to non-interactive CLI flags and standard POSIX streams when piped or run inside automation.
+
 ## Quickstart
 
 Clone the repo, install the companion CLI tools [`com`](https://github.com/octopus-harness/octo-com) and [`work`](https://github.com/octopus-harness/octo-work) into your `PATH`, create the three local directories, then add your first command and workspace:
@@ -140,6 +173,9 @@ cd octopus
 
 # Ensure com and work are installed and on your PATH:
 # (see https://github.com/octopus-harness/octo-com and https://github.com/octopus-harness/octo-work)
+
+# Point com to this repository's commands directory so commands are accessible everywhere
+com config set-dir "$PWD/commands"
 
 mkdir -p commands workspace archive
 
