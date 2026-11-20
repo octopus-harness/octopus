@@ -1,14 +1,12 @@
 # octopus: agent guide
 
-Octopus is a personal command and workspace harness for AI agents. It uses lightweight CLI tools (`bin/com` and `bin/work`) to load specific Markdown context on demand (`$$` commands) and manage isolated workspaces.
+Octopus is a personal command and workspace harness for AI agents. It uses lightweight CLI tools (`com` and `work`) to load specific Markdown context on demand (`$$` commands) and manage isolated workspaces.
 
 | Path | Contents |
 | --- | --- |
 | `README.md` | Repo overview, ecosystem links, and quickstart |
 | `COMMANDS.md` | How to use `com` for `$$` commands |
 | `AGENTS.md` | Agent guide and `$$` command protocol |
-| `bin/com` | CLI tool to add and read command definitions in `./commands` |
-| `bin/work` | CLI tool to add and archive workspaces in `./workspace` and `./archive` |
 | `commands/` | Local command Markdown files (gitignored) |
 | `workspace/` | Active workspace folders (gitignored) |
 | `archive/` | Archived workspace folders (gitignored) |
